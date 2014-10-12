@@ -1,4 +1,69 @@
 hash_dic_test
 =============
 
-Example functions to develop and demonstrate the new feature "hashed catalogue" for Disk ARchive - dar
+Example functions to develop and demonstrate the new feature
+"hashed catalogue" for Disk ARchive - dar (http://dar.linux.free.fr/).
+
+dar feature-request: #173 dictionary in clear text beside isolated catalogues 
+(http://sourceforge.net/p/dar/feature-requests/173/)
+
+structure
+---------
+{ 
+    H(path+filename | inodeID | mtime | UUID + salt) : 
+        [userID, groupID, perm, file_size, is_dir, type, flags, ctime],
+    ...
+}
+e.g.:
+{ 
+    H("/home/foo/Documents/test.txt|165652|1413128111|fdf7c30d-838c-4e16-af37-2a345650590a" + salt) : 
+        [100, 100, 0755, 1000, False, DT_REG, flags, 1413128111],
+
+    H("/home/foo/Pictures/test.jpg|165435|1413128184|fdf7c30d-838c-4e16-af37-2a345650590a" + salt) : 
+        [100, 100, 0755, 5000000, False, DT_REG, flags, 1413128184],
+    ...
+}
+
+As hash function SHA3-512 with 100 iterations will be used.
+
+Build
+-----
+* openssl lib+header files are required
+
+$make
+
+
+Usage
+-----
+./hash_dic_test <path>
+
+The program has three stages:
+1) generate hashes
+The path will be searched recursive and the signature of every file will be hashed
+2) build hash table
+Perform step 1 and store the hashes in a std::unsorted_map
+3) search in hash table
+Perform step 1 and look-up the hash in the just created hash table
+
+The time that is needed to execute every single stage is recorded
+to analyse the performance of the different steps. To speed up stage 1,
+execute the program twice, so that the index of the file system is already cached.
+
+Example
+-------
+./hash_dic_test /home/foo/
+generate hashes
+duration: 0:1:8
+---------------------------------
+build hash table
+duration: 0:1:13
+---------------------------------
+search in hash table
+duration: 0:0:997
+---------------------------------
+map entries: 89.649
+map size: ~17,929MB
+
+ToDo
+----
+* save and load the dictionary inside another file(the dar archive)
