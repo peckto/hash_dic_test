@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+hash_dic_test
+
+# Temp files
+*~
