@@ -7,7 +7,7 @@ Example functions to develop and demonstrate the new feature
 dar feature-request: #173 dictionary in clear text beside isolated catalogues 
 (http://sourceforge.net/p/dar/feature-requests/173/)
 
-structure
+Structure
 ---------
 { 
     H(path+filename | inodeID | mtime | UUID + salt) : 
