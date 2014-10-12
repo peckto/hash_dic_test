@@ -28,9 +28,9 @@ As hash function SHA3-512 with 100 iterations will be used.
 
 Build
 -----
-* openssl lib+header files are required
+* openssl lib + header files are required
 
-$make
+$ make
 
 
 Usage
@@ -48,6 +48,8 @@ Perform step 1 and look-up the hash in the just created hash table
 The time that is needed to execute every single stage is recorded
 to analyse the performance of the different steps. To speed up stage 1,
 execute the program twice, so that the index of the file system is already cached.
+The duration is displayed as:
+minutes:seconds:milliseconds
 
 Example
 -------
