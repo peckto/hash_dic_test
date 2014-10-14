@@ -24,7 +24,7 @@ e.g.:
     ...
 }
 
-As hash function SHA3-512 with 100 iterations will be used.
+SHA3-512 is used as hash function.
 
 Build
 -----
